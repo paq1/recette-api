@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  app:
+    image: ppaquin/recette-api:latest
+    ports:
+      - "8001:8000"
+    depends_on:
+      - db
+    environment:
+      - ROCKET_ADDRESS=0.0.0.0
+      - ROCKET_PORT=8000
+      - MONGO_URI=mongodb://db:27017
+    networks:
+      - recette-network
+  db:
+    image: mongo:latest
+    #    ports:
+    #      - "27017:27017"
+    volumes:
+      - recette_db_data:/data/db
+    networks:
+      - recette-network
+volumes:
+  my_db_data:
+networks:
+  recette-network:
+#    driver: bridge
