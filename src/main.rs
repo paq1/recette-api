@@ -1,3 +1,15 @@
-fn main() {
-    println!("Hello, world!!!");
+#[macro_use] extern crate rocket;
+
+use rocket::{Build, Rocket};
+
+use crate::api::recettes::components::app_launcher::AppLauncher;
+
+mod api;
+mod core;
+mod models;
+
+#[launch]
+async fn rocket() -> Rocket<Build> {
+    dotenv::dotenv().ok();
+    AppLauncher::launch_rocket().await.unwrap()
 }

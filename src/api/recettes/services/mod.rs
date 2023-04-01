@@ -1,0 +1,1 @@
+pub mod recettes_repository_mongo;
