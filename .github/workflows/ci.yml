@@ -42,3 +42,9 @@ jobs:
             ${{ env.DOCKER_REGISTRY }}/recette-api:${{ github.sha }}
             ${{ env.DOCKER_REGISTRY }}/recette-api:latest
           platforms: linux/amd64,linux/arm64
+          build-args: |
+            BUILDKIT_INLINE_CACHE=1
+            RUSTFLAGS="-C target-cpu=native"
+          # Augmenter la mémoire disponible pour Docker à 4 Go
+          builder-args: |
+            --memory=7g
