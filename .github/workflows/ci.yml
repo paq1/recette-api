@@ -45,6 +45,4 @@ jobs:
           build-args: |
             BUILDKIT_INLINE_CACHE=1
             RUSTFLAGS="-C target-cpu=native"
-          # Augmenter la mémoire disponible pour Docker à 10 Go
-          builder-args: |
             --memory=10g
