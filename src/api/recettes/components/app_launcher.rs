@@ -1,6 +1,7 @@
 use rocket::{Build, Rocket};
 use crate::api::recettes::services::recettes_repository_mongo::RecetteRepositoryMongo;
 use crate::api::recettes::routes::recettes_read_router::get_recettes;
+use crate::api::recettes::routes::recettes_write_router::create_command;
 use crate::core::recettes::errors::custom::CustomError;
 
 pub struct AppLauncher;
@@ -14,7 +15,8 @@ impl AppLauncher {
                     .mount(
                         "/",
                         routes![
-                            get_recettes
+                            get_recettes,
+                            create_command
                         ]
                     )
             })
