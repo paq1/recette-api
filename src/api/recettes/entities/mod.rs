@@ -1,0 +1,1 @@
+pub mod recette_dbo;
