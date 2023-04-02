@@ -36,5 +36,5 @@ jobs:
 
       - name: push latest
         run: |
-          docker login
+          docker login docker.io
           docker push ppaquin/recette-api:latest
