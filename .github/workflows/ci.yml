@@ -22,17 +22,11 @@ jobs:
 #          cargo build --verbose
 #          cargo test --verbose
 
-#      - name: Build image
-#        run: docker build -t recette-api .
+      - name: Build image
+        run: docker build -t recette-api .
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-
-      - name: Build Docker image
-        run: docker buildx build --platform linux/arm64 --memory 20g -t recette-api .
-
-#      - name: Tag image latest
-#        run: docker tag recette-api ppaquin/recette-api:latest
+      - name: Tag image latest
+        run: docker tag recette-api ppaquin/recette-api:latest
 
       - name: Login to docker hub
         uses: actions-hub/docker/login@master
@@ -40,19 +34,7 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: push Docker image
-        id: docker_build
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          push: true
-          load: true
-          tags: ppaquin/recette-api:${{ github.sha }}
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache
-
-#      - name: push latest
-#        run: |
-#          docker login
-#          docker push ppaquin/recette-api:latest
+      - name: push latest
+        run: |
+          docker login
+          docker push ppaquin/recette-api:latest
