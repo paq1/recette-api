@@ -35,4 +35,4 @@ jobs:
       - name: Push to docker hub :latest
         uses: actions-hub/docker@master
         with:
-          args: push ${{env.IMAGE_NAME}}:latest
+          args: push ppaquin/${{env.IMAGE_NAME}}:latest
