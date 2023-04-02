@@ -23,23 +23,22 @@ jobs:
 #          cargo build --verbose
 #          cargo test --verbose
 
+      - name: Build image
+        run: docker build -t ${{env.IMAGE_NAME}} .
+
+      - name: Tag image latest
+        run: docker tag ${{env.IMAGE_NAME}} ppaquin/${{env.IMAGE_NAME}}:latest
+
       - name: Login to docker hub
         uses: actions-hub/docker/login@master
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build image
-        run: docker build -t ${{env.IMAGE_NAME}} .
-
-      - name: Tag image latest
-        run: docker tag ${{env.IMAGE_NAME}} ${{env.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}:latest
-
-      - name: Tag image sha
-        run: docker tag ${{env.IMAGE_NAME}} ${{env.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}:${{github.sha}}
-
-      - name: push sha
-        run: docker push ${{env.DOCKER_USERNAME}}/${{ env.IMAGE_NAME }}:${{github.sha}}
+#      - name: push sha
+#        run: docker push ${{env.DOCKER_USERNAME}}/${{ env.IMAGE_NAME }}:${{github.sha}}
 
       - name: push latest
-        run: docker push ${{env.DOCKER_USERNAME}}/${{ env.IMAGE_NAME }}:latest
+        run: |
+          docker login
+          docker push ppaquin/${{ env.IMAGE_NAME }}:latest
