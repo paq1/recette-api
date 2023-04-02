@@ -39,7 +39,6 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: .
-          image: recette-api
           push: true
           tags: ppaquin/my-app:${{ github.sha }}
           platforms: linux/amd64,linux/arm64
