@@ -22,7 +22,7 @@ services:
     networks:
       - recette-network
 volumes:
-  my_db_data:
+  recette_db_data:
 networks:
   recette-network:
 #    driver: bridge
