@@ -23,12 +23,16 @@ jobs:
 #          cargo build --verbose
 #          cargo test --verbose
 
-      - name: Build and push Docker image
-        uses: docker/cli@2.0.0
+      - name: Login to docker hub
+        uses: actions-hub/docker/login@master
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build :latest
+        run: docker build -t ${{env.IMAGE_NAME}}:latest .
+
+      - name: Push to docker hub :latest
+        uses: actions-hub/docker@master
         with:
-          context: .
-          tags: |
-            ${{ env.DOCKER_REGISTRY }}/recette-api:${{ github.sha }}
-            ${{ env.DOCKER_REGISTRY }}/recette-api:latest
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ env.DOCKER_PASSWORD }}
+          args: push ${{env.IMAGE_NAME}}:latest
