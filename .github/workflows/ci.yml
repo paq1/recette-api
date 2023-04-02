@@ -29,10 +29,17 @@ jobs:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build :latest
-        run: docker build -t ${{env.IMAGE_NAME}}:latest .
+      - name: Build image
+        run: docker build -t ${{env.IMAGE_NAME}} .
 
-      - name: Push to docker hub :latest
-        uses: actions-hub/docker@master
-        with:
-          args: push ppaquin/${{env.IMAGE_NAME}}:latest
+      - name: Tag image latest
+        run: docker tag ${{env.IMAGE_NAME}} ${{env.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}:latest
+
+      - name: Tag image sha
+        run: docker tag ${{env.IMAGE_NAME}} ${{env.DOCKER_USERNAME}}/${{env.IMAGE_NAME}}:${{github.sha}}
+
+      - name: push sha
+        run: docker push ${{env.DOCKER_USERNAME}}/${{ env.IMAGE_NAME }}:${{github.sha}}
+
+      - name: push latest
+        run: docker push ${{env.DOCKER_USERNAME}}/${{ env.IMAGE_NAME }}:latest
