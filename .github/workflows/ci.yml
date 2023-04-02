@@ -36,9 +36,6 @@ jobs:
           registry: docker.io
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-#          email: ${{ secrets.DOCKER_EMAIL }}
-#          login-path: docker-login
-#          config-file: './.docker/config.json'
 
       - name: push latest
         run: |
