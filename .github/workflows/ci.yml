@@ -28,7 +28,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
         with:
-          driver-opts: size=2g
+          driver-opts: limits.memory=4G
 
 #      - name: Tag image latest
 #        run: docker tag recette-api ppaquin/recette-api:latest
