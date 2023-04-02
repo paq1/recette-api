@@ -24,7 +24,7 @@ jobs:
 #          cargo test --verbose
 
       - name: Build and push Docker image
-        uses: docker/cli@v2
+        uses: docker/cli@latest
         with:
           context: .
           tags: |
